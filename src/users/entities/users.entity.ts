@@ -24,7 +24,7 @@ export class UsersEntity {
   @Column({ unique: true })
   email: string;
 
-  @Column()
+  @Column({ type: 'bigint' })
   phone: number;
 
   @Column({ name: 'verified_email_at', nullable: true })

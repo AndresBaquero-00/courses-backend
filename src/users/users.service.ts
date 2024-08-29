@@ -9,8 +9,8 @@ import { UsersRepository } from './repositories';
 @Injectable()
 export class UsersService {
   public constructor(
-    private usersRepository: UsersRepository,
-    private rolesRepository: RolesRepository,
+    private readonly usersRepository: UsersRepository,
+    private readonly rolesRepository: RolesRepository,
   ) {}
 
   public async findAll(): Promise<UsersEntity[]> {
