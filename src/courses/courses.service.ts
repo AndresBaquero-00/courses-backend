@@ -1,5 +1,12 @@
 import { Injectable } from '@nestjs/common';
 
+import { CreateCourseDTO } from './dto';
+import {
+  CategoriesEntity,
+  CoursesEntity,
+  InscriptionStatusEntity,
+  ModalitiesEntity,
+} from './entities';
 import {
   CategoriesRepository,
   CoursesRepository,
@@ -7,13 +14,6 @@ import {
   ModalitiesRepository,
   UserCourseRepository,
 } from './repositories';
-import {
-  CategoriesEntity,
-  CoursesEntity,
-  InscriptionStatusEntity,
-  ModalitiesEntity,
-} from './entities';
-import { CreateCourseDTO } from './dto';
 
 @Injectable()
 export class CoursesService {

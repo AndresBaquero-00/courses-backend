@@ -1,11 +1,11 @@
 import { Injectable } from '@nestjs/common';
 
-import { RolesRepository } from './roles/repositories';
 import {
   CategoriesRepository,
   InscriptionStatusRepository,
   ModalitiesRepository,
 } from './courses/repositories';
+import { RolesRepository } from './roles/repositories';
 
 @Injectable()
 export class AppService {
