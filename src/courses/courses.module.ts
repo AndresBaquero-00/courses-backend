@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
+import { UsersModule } from 'src/users/users.module';
 import { CoursesController } from './courses.controller';
 import { CoursesService } from './courses.service';
 import {
@@ -17,7 +18,6 @@ import {
   ModalitiesRepository,
   UserCourseRepository,
 } from './repositories';
-import { UsersModule } from 'src/users/users.module';
 
 @Module({
   imports: [
