@@ -17,11 +17,11 @@ export class UserCourseEntity {
   @PrimaryGeneratedColumn('increment')
   id: number;
 
-  @ManyToOne(() => UsersEntity)
+  @ManyToOne(() => UsersEntity, { onDelete: 'CASCADE' })
   @JoinColumn({ name: 'user_id' })
   user: UsersEntity;
 
-  @ManyToOne(() => CoursesEntity)
+  @ManyToOne(() => CoursesEntity, { onDelete: 'CASCADE' })
   @JoinColumn({ name: 'course_id' })
   course: CoursesEntity;
 
