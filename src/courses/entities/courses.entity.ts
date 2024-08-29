@@ -30,7 +30,7 @@ export class CoursesEntity {
   @Column()
   duration: number;
 
-  @Column()
+  @Column({ type: 'decimal', precision: 2 })
   couta: number;
 
   @CreateDateColumn({ name: 'created_at' })
