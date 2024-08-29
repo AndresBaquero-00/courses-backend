@@ -18,6 +18,9 @@ export class CoursesRepository
       take: size,
       skip: page * size,
       relations: { category: true, modality: true },
+      order: {
+        createdAt: 'DESC',
+      },
     });
   }
 
