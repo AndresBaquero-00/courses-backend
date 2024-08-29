@@ -8,4 +8,10 @@ export class RolesRepository extends Repository<RolesEntity> {
   public constructor(private dataSource: DataSource) {
     super(RolesEntity, dataSource.createEntityManager());
   }
+
+  public async findById(id: number): Promise<RolesEntity> {
+    return await this.findOne({
+      where: { id },
+    });
+  }
 }

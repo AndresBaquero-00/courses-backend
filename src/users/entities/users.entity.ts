@@ -27,7 +27,7 @@ export class UsersEntity {
   @Column()
   phone: number;
 
-  @Column({ name: 'verified_email_at' })
+  @Column({ name: 'verified_email_at', nullable: true })
   verifiedEmailAt: Date;
 
   @ManyToOne(() => RolesEntity)
