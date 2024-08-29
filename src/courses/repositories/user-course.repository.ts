@@ -13,8 +13,22 @@ export class UserCourseRepository
     super(UserCourseEntity, dataSource.createEntityManager());
   }
 
-  public async findAll(): Promise<UserCourseEntity[]> {
-    return await this.find();
+  public async findAll(
+    page: number,
+    size: number,
+  ): Promise<UserCourseEntity[]> {
+    return await this.find({
+      take: size,
+      skip: page * size,
+      relations: {
+        user: true,
+        course: true,
+        inscriptionStatus: true,
+      },
+      order: {
+        createdAt: 'DESC',
+      },
+    });
   }
 
   public async findById(id: number): Promise<UserCourseEntity> {

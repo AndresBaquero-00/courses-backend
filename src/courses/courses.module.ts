@@ -1,7 +1,6 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
-import { UsersEntity } from 'src/users/entities';
 import { CoursesController } from './courses.controller';
 import { CoursesService } from './courses.service';
 import {
@@ -18,6 +17,7 @@ import {
   ModalitiesRepository,
   UserCourseRepository,
 } from './repositories';
+import { UsersModule } from 'src/users/users.module';
 
 @Module({
   imports: [
@@ -28,7 +28,7 @@ import {
       ModalitiesEntity,
       UserCourseEntity,
     ]),
-    UsersEntity,
+    UsersModule,
   ],
   exports: [
     TypeOrmModule,

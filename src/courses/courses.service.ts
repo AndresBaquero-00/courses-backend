@@ -1,11 +1,13 @@
 import { Injectable } from '@nestjs/common';
 
-import { CreateCourseDTO } from './dto';
+import { UsersRepository } from 'src/users/repositories';
+import { CreateCourseDTO, CreateUserCourseDTO } from './dto';
 import {
   CategoriesEntity,
   CoursesEntity,
   InscriptionStatusEntity,
   ModalitiesEntity,
+  UserCourseEntity,
 } from './entities';
 import {
   CategoriesRepository,
@@ -23,6 +25,7 @@ export class CoursesService {
     private readonly inscriptionStatusRepository: InscriptionStatusRepository,
     private readonly modalitiesRepository: ModalitiesRepository,
     private readonly userCourseRepository: UserCourseRepository,
+    private readonly usersRepository: UsersRepository,
   ) {}
 
   public async findAllCourses(
@@ -53,5 +56,29 @@ export class CoursesService {
 
   public async findAllModalities(): Promise<ModalitiesEntity[]> {
     return this.modalitiesRepository.findAll();
+  }
+
+  public async findAllUserCourse(
+    page: number = 0,
+    size: number = 10,
+  ): Promise<UserCourseEntity[]> {
+    return this.userCourseRepository.findAll(page, size);
+  }
+
+  public async createUserCourse(
+    userCourse: CreateUserCourseDTO,
+  ): Promise<{ id: number }> {
+    const user = await this.usersRepository.findById(userCourse.user);
+    const course = await this.coursesRepository.findById(userCourse.course);
+    const inscriptionStatus = await this.inscriptionStatusRepository.findById(
+      userCourse.inscriptionStatus,
+    );
+    const saved = await this.userCourseRepository.save({
+      ...userCourse,
+      user,
+      course,
+      inscriptionStatus,
+    });
+    return { id: saved.id };
   }
 }

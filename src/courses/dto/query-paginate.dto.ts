@@ -1,6 +1,6 @@
 import { IsInt, IsOptional } from 'class-validator';
 
-export class QueryListCoursesDTO {
+export class QueryPaginateDTO {
   @IsInt()
   @IsOptional()
   page?: number;
