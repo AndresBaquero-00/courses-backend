@@ -58,19 +58,16 @@ export class CoursesController {
   }
 
   @Get('categories')
-  @HasRoleDecorator([RolesEnum.Admin, RolesEnum.Coordinador])
   public async findAllCategories() {
     return await this.coursesService.findAllCategories();
   }
 
   @Get('inscription-status')
-  @HasRoleDecorator([RolesEnum.Admin, RolesEnum.Coordinador])
   public async findAllInscriptionStatus() {
     return await this.coursesService.findAllInscriptionStatus();
   }
 
   @Get('modalities')
-  @HasRoleDecorator([RolesEnum.Admin, RolesEnum.Coordinador])
   public async findAllModalities() {
     return await this.coursesService.findAllModalities();
   }
@@ -81,13 +78,11 @@ export class CoursesController {
   }
 
   @Post('user-course')
-  @HasRoleDecorator([RolesEnum.Admin, RolesEnum.Coordinador])
   public async createUserCourse(@Body() userCourse: CreateUserCourseDTO) {
     return await this.coursesService.createUserCourse(userCourse);
   }
 
   @Patch('user-course/:id')
-  @HasRoleDecorator([RolesEnum.Admin, RolesEnum.Coordinador])
   public async updateUserCourse(
     @Param('id') id: number,
     @Body() userCourse: UpdateUserCourseDTO,
@@ -96,7 +91,6 @@ export class CoursesController {
   }
 
   @Delete('user-course/:id')
-  @HasRoleDecorator([RolesEnum.Admin, RolesEnum.Coordinador])
   public async deleteUserCourse(@Param('id') id: number) {
     return await this.coursesService.deleteUserCourse(id);
   }
