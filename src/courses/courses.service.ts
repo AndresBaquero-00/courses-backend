@@ -37,7 +37,7 @@ export class CoursesService {
     page: number = 0,
     size: number = 10,
   ): Promise<CoursesEntity[]> {
-    return this.coursesRepository.findAll(page, size);
+    return await this.coursesRepository.findAll(page, size);
   }
 
   public async createCourse(course: CreateCourseDTO): Promise<{ id: number }> {
@@ -82,22 +82,22 @@ export class CoursesService {
   }
 
   public async findAllCategories(): Promise<CategoriesEntity[]> {
-    return this.categoriesRepository.findAll();
+    return await this.categoriesRepository.findAll();
   }
 
   public async findAllInscriptionStatus(): Promise<InscriptionStatusEntity[]> {
-    return this.inscriptionStatusRepository.findAll();
+    return await this.inscriptionStatusRepository.findAll();
   }
 
   public async findAllModalities(): Promise<ModalitiesEntity[]> {
-    return this.modalitiesRepository.findAll();
+    return await this.modalitiesRepository.findAll();
   }
 
   public async findAllUserCourse(
     page: number = 0,
     size: number = 10,
   ): Promise<UserCourseEntity[]> {
-    return this.userCourseRepository.findAll(page, size);
+    return await this.userCourseRepository.findAll(page, size);
   }
 
   public async createUserCourse(
@@ -146,6 +146,6 @@ export class CoursesService {
       throw new BadRequestException('El curso asociado al usuario no existe.');
     }
 
-    this.userCourseRepository.delete({ id });
+    await this.userCourseRepository.delete({ id });
   }
 }

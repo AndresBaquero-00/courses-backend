@@ -25,6 +25,16 @@ services:
     volumes:
       - courses_pg-volume:/var/lib/pgadmin
 
+  backend:
+    container_name: courses-backend
+    image: courses-backend
+    restart: always
+    depends_on:
+      - db
+    ports:
+      - 3000:${PORT}
+    env_file: .env
+
 volumes:
   courses_db-volume:
     external: false
