@@ -78,7 +78,7 @@ export class CoursesService {
       throw new BadRequestException('El curso no existe.');
     }
 
-    this.coursesRepository.delete({ id });
+    await this.coursesRepository.delete({ id });
   }
 
   public async findAllCategories(): Promise<CategoriesEntity[]> {
@@ -131,12 +131,15 @@ export class CoursesService {
     const inscriptionStatus = await this.inscriptionStatusRepository.findById(
       userCourse.inscriptionStatus,
     );
-    await this.userCourseRepository.save({
-      ...userCourse,
-      user,
-      course,
-      inscriptionStatus,
-    });
+    await this.userCourseRepository.update(
+      { id },
+      {
+        ...userCourse,
+        user,
+        course,
+        inscriptionStatus,
+      },
+    );
     return { id: saved.id };
   }
 
