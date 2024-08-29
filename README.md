@@ -1,73 +1,65 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
+# Courses Backend 💻
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+Backend del aplicativo de cursos.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+## Requisitos de ejecución ⛏️
 
-## Description
+- NodeJS
+- Docker
+- PostgreSQL
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+## Configurar variables de entorno
 
-## Installation
+| Variable       | Descripción                                        | Requerida |
+| -------------- | -------------------------------------------------- | --------- |
+| PORT           | Puerto de ejecución de la aplicación.              | Si        |
+| DB_HOST        | Host de la base de datos PostgreSQL.               | Si        |
+| DB_PORT        | Puerto de la base de datos PostgreSQL.             | Si        |
+| DB_USER        | Usuario de la base de datos PostgreSQL.            | Si        |
+| DB_PASSWORD    | Contraseña de la base de datos PostgreSQL.         | Si        |
+| DB_NAME        | Nombre del esquema de la base de datos PostgreSQL. | Si        |
+| PG_USER        | Usuario para ingresar al gestor visual pgAdmin.    | No        |
+| PG_PASSWORD    | Contraseña para ingresar al gestor visual pgAdmin. | No        |
+| JWT_SECRET_KEY | Cadena para generar los JWT.                       | Si        |
 
-```bash
-$ npm install
+## ¿Cómo ejecutar en ambiente de pruebas? 🧪
+
+1. Copiar el archivo `.env.template` y colocarle el nombre de `.env`.
+
+2. Reemplazar valores por defecto en el archivo `.env`.
+
+3. Instalar las dependencias con el comando
+
+```sh
+npm install
 ```
 
-## Running the app
+4. Levantar base de datos mediante Docker con el comando
 
-```bash
-# development
-$ npm run start
-
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
+```sh
+docker compose up -d
 ```
 
-## Test
+En caso que no se desee utilizar pgAdmin, se puede comentar directamente el servicio en el archivo `docker-compose.yml`.
 
-```bash
-# unit tests
-$ npm run test
+5. Levantar servidor de desarrollo con el comando
 
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
+```sh
+npm run start:dev
 ```
 
-## Support
+## ¿Cómo ejecutar utilizando Docker? 🐳
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+1. Construir la imagen de Docker con el comando
 
-## Stay in touch
+```sh
+docker build -t courses-backend .
+```
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+2. Reemplazar valores por defecto en el archivo `.env`.
 
-## License
+3. Levantar el contenedor de la imagen construida con el comando
 
-Nest is [MIT licensed](LICENSE).
+```sh
+docker container run -p <PORT_LOCAL>:<PORT_IMAGE> --env-file .env courses-backend
+```
