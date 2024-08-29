@@ -37,7 +37,7 @@ export class UsersController {
   }
 
   @Post()
-  @HasRoleDecorator([RolesEnum.Admin, RolesEnum.Coordinador, RolesEnum.Docente])
+  @HasRoleDecorator([RolesEnum.Admin, RolesEnum.Coordinador])
   @HttpCode(HttpStatus.CREATED)
   public async create(@Body() user: CreateUserDTO) {
     return this.usersService.create(user);
