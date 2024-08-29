@@ -17,6 +17,7 @@ import {
   UserCourseRepository,
 } from './repositories';
 import { UpdateCourseDTO } from './dto/update-course.dto';
+import { UpdateUserCourseDTO } from './dto/update-user-course.dto';
 
 @Injectable()
 export class CoursesService {
@@ -111,5 +112,37 @@ export class CoursesService {
       inscriptionStatus,
     });
     return { id: saved.id };
+  }
+
+  public async updateUserCourse(
+    id: number,
+    userCourse: UpdateUserCourseDTO,
+  ): Promise<{ id: number }> {
+    const saved = await this.userCourseRepository.findById(id);
+    if (saved === null) {
+      throw new BadRequestException('El curso asociado al usuario no existe.');
+    }
+
+    const user = await this.usersRepository.findById(userCourse.user);
+    const course = await this.coursesRepository.findById(userCourse.course);
+    const inscriptionStatus = await this.inscriptionStatusRepository.findById(
+      userCourse.inscriptionStatus,
+    );
+    await this.userCourseRepository.save({
+      ...userCourse,
+      user,
+      course,
+      inscriptionStatus,
+    });
+    return { id: saved.id };
+  }
+
+  public async deleteUserCourse(id: number): Promise<void> {
+    const saved = await this.userCourseRepository.findById(id);
+    if (saved === null) {
+      throw new BadRequestException('El curso asociado al usuario no existe.');
+    }
+
+    this.userCourseRepository.delete({ id });
   }
 }

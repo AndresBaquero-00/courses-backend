@@ -14,6 +14,7 @@ import {
 import { CoursesService } from './courses.service';
 import { CreateCourseDTO, CreateUserCourseDTO, QueryPaginateDTO } from './dto';
 import { UpdateCourseDTO } from './dto/update-course.dto';
+import { UpdateUserCourseDTO } from './dto/update-user-course.dto';
 
 @Controller('courses')
 export class CoursesController {
@@ -66,5 +67,18 @@ export class CoursesController {
   @Post('user-course')
   public async createUserCourse(@Body() userCourse: CreateUserCourseDTO) {
     return await this.coursesService.createUserCourse(userCourse);
+  }
+
+  @Patch('user-course/:id')
+  public async updateUserCourse(
+    @Param('id') id: number,
+    @Body() userCourse: UpdateUserCourseDTO,
+  ) {
+    return await this.coursesService.updateUserCourse(id, userCourse);
+  }
+
+  @Delete('user-course/:id')
+  public async deleteUserCourse(@Param('id') id: number) {
+    return await this.coursesService.deleteUserCourse(id);
   }
 }
