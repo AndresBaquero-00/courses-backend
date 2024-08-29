@@ -27,6 +27,7 @@ lerna-debug.log*
 *.launch
 .settings/
 *.sublime-workspace
+/.vscode
 
 # IDE - VSCode
 .vscode/*
@@ -43,6 +44,7 @@ lerna-debug.log*
 .env.local
 
 # temp directory
+/data
 .temp
 .tmp
 
