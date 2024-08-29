@@ -9,6 +9,13 @@ import {
   ModalitiesEntity,
   UserCourseEntity,
 } from './entities';
+import {
+  CategoriesRepository,
+  CoursesRepository,
+  InscriptionStatusRepository,
+  ModalitiesRepository,
+  UserCourseRepository,
+} from './repositories';
 
 @Module({
   imports: [
@@ -21,6 +28,20 @@ import {
     ]),
     UsersEntity,
   ],
-  exports: [TypeOrmModule],
+  exports: [
+    TypeOrmModule,
+    CategoriesRepository,
+    CoursesRepository,
+    InscriptionStatusRepository,
+    ModalitiesRepository,
+    UserCourseRepository,
+  ],
+  providers: [
+    CategoriesRepository,
+    CoursesRepository,
+    InscriptionStatusRepository,
+    ModalitiesRepository,
+    UserCourseRepository,
+  ],
 })
 export class CoursesModule {}
