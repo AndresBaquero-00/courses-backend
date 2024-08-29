@@ -1,15 +1,17 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   HttpCode,
   HttpStatus,
   Param,
+  Patch,
   Post,
   Req,
 } from '@nestjs/common';
 
-import { CreateUserDTO } from './dto';
+import { CreateUserDTO, UpdateUserDTO } from './dto';
 import { UsersService } from './users.service';
 
 @Controller('users')
@@ -30,5 +32,15 @@ export class UsersController {
   @HttpCode(HttpStatus.CREATED)
   public async create(@Body() user: CreateUserDTO) {
     return this.usersService.create(user);
+  }
+
+  @Patch('/:id')
+  public async update(@Param('id') id: number, @Body() user: UpdateUserDTO) {
+    return this.usersService.update(id, user);
+  }
+
+  @Delete('/:id')
+  public async delete(@Param('id') id: number) {
+    return this.usersService.delete(id);
   }
 }

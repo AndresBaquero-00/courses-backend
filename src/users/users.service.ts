@@ -2,7 +2,7 @@ import { BadRequestException, Injectable } from '@nestjs/common';
 import { QueryFailedError } from 'typeorm';
 
 import { RolesRepository } from 'src/roles/repositories';
-import { CreateUserDTO } from './dto';
+import { CreateUserDTO, UpdateUserDTO } from './dto';
 import { UsersEntity } from './entities';
 import { UsersRepository } from './repositories';
 
@@ -36,5 +36,36 @@ export class UsersService {
       console.log(err.message);
       throw new BadRequestException('El correo ya se encuentra registrado.');
     }
+  }
+
+  public async update(id: number, user: UpdateUserDTO): Promise<void> {
+    const saved = await this.usersRepository.findById(id);
+    if (saved === null) {
+      throw new BadRequestException('El usuario no existe.');
+    }
+
+    const role = await this.rolesRepository.findById(user.role);
+    try {
+      await this.usersRepository.update(
+        { id },
+        {
+          ...user,
+          role: role,
+        },
+      );
+    } catch (e: unknown) {
+      const err = e as QueryFailedError;
+      console.log(err.message);
+      throw new BadRequestException('El correo ya se encuentra registrado.');
+    }
+  }
+
+  public async delete(id: number): Promise<void> {
+    const saved = await this.usersRepository.findById(id);
+    if (saved === null) {
+      throw new BadRequestException('El usuario no existe.');
+    }
+
+    this.usersRepository.delete({ id });
   }
 }
