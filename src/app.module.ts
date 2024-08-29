@@ -29,7 +29,7 @@ import { UsersModule } from './users/users.module';
       },
       // dropSchema: true,
       // synchronize: true,
-      // autoLoadEntities: true,
+      autoLoadEntities: true,
       logging: 'all',
     }),
     CoursesModule,
