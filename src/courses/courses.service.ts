@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 
 import { UsersRepository } from 'src/users/repositories';
 import { CreateCourseDTO, CreateUserCourseDTO } from './dto';
@@ -16,6 +16,7 @@ import {
   ModalitiesRepository,
   UserCourseRepository,
 } from './repositories';
+import { UpdateCourseDTO } from './dto/update-course.dto';
 
 @Injectable()
 export class CoursesService {
@@ -44,6 +45,36 @@ export class CoursesService {
       modality,
     });
     return { id: saved.id };
+  }
+
+  public async updateCourse(
+    id: number,
+    course: UpdateCourseDTO,
+  ): Promise<void> {
+    const saved = await this.coursesRepository.findById(id);
+    if (saved === null) {
+      throw new BadRequestException('El curso no existe.');
+    }
+
+    const category = await this.categoriesRepository.findById(course.category);
+    const modality = await this.modalitiesRepository.findById(course.modality);
+    await this.coursesRepository.update(
+      { id },
+      {
+        ...course,
+        category,
+        modality,
+      },
+    );
+  }
+
+  public async deleteCourse(id: number): Promise<void> {
+    const saved = await this.coursesRepository.findById(id);
+    if (saved === null) {
+      throw new BadRequestException('El curso no existe.');
+    }
+
+    this.coursesRepository.delete({ id });
   }
 
   public async findAllCategories(): Promise<CategoriesEntity[]> {

@@ -1,15 +1,19 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   HttpCode,
   HttpStatus,
+  Param,
+  Patch,
   Post,
   Query,
 } from '@nestjs/common';
 
 import { CoursesService } from './courses.service';
 import { CreateCourseDTO, CreateUserCourseDTO, QueryPaginateDTO } from './dto';
+import { UpdateCourseDTO } from './dto/update-course.dto';
 
 @Controller('courses')
 export class CoursesController {
@@ -24,6 +28,19 @@ export class CoursesController {
   @HttpCode(HttpStatus.CREATED)
   public async createCourse(@Body() course: CreateCourseDTO) {
     return await this.coursesService.createCourse(course);
+  }
+
+  @Patch('/:id')
+  public async updateCourse(
+    @Param('id') id: number,
+    @Body() course: UpdateCourseDTO,
+  ) {
+    return await this.coursesService.updateCourse(id, course);
+  }
+
+  @Delete('/:id')
+  public async deleteCourse(@Param('id') id: number) {
+    return await this.coursesService.deleteCourse(id);
   }
 
   @Get('categories')
