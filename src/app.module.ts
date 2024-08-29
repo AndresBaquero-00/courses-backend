@@ -20,6 +20,13 @@ import { UsersModule } from './users/users.module';
       password: process.env.DB_PASSWORD,
       database: process.env.DB_NAME,
       entities: [__dirname + '/**/*.entity{.ts,.js}'],
+      ssl: process.env.ENV === 'production',
+      extra: {
+        ssl:
+          process.env.ENV === 'production'
+            ? { rejectUnauthorized: false }
+            : undefined,
+      },
       // dropSchema: true,
       // synchronize: true,
       // autoLoadEntities: true,
